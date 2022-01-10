@@ -10,6 +10,8 @@ function openDownloadWindow() {
   let titleInput = document.createElement('input')
   let videoSelectionDropdown = document.createElement('select')
 
+  overlay.addEventListener('click', closeDownloadWindow)
+
   // Classes
   overlay.classList.add('download-overlay')
   popup.classList.add('download-popup')
@@ -54,4 +56,5 @@ function generateQRCode() {
     return undefined
   }
   let uuid = response.code
+  console.log(uuid)
 }
