@@ -10,7 +10,14 @@
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/watch*"],
-      "js": ["scripts/button.js", "scripts/util.js", "scripts/index.js"]
+      "js": [
+        "scripts/config.js",
+        "scripts/download.js",
+        "scripts/button.js",
+        "scripts/util.js",
+        "scripts/index.js"
+      ],
+      "css": ["style.css"]
     }
   ]
 }

@@ -42,9 +42,28 @@ function readUrl(url) {
   }
 }
 
-function createDownloadButton() {
-  var element = document.createElement('div')
+function createDownloadButton() {}
 
-  element.innerHTML = '<object type="text/html" data="test.html" ></object>'
-  return element
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div')
+  div.innerHTML = htmlString.trim()
+
+  // Change this to div.childNodes to support multiple top-level nodes
+  console.log(div.firstChild)
+  return div.firstChild
+}
+
+function htmlToElement(html) {
+  var template = document.createElement('template')
+  html = html.trim() // Never return a text node of whitespace as the result
+  template.innerHTML = html
+  console.log(template.content.firstChild)
+  return template.content.firstChild
+}
+
+function httpGet(url) {
+  var xmlHttp = new XMLHttpRequest()
+  xmlHttp.open('GET', url, false) // false for synchronous request
+  xmlHttp.send(null)
+  return xmlHttp.responseText
 }
