@@ -1,0 +1,16 @@
+{
+  "name": "AzTube Downloader",
+  "version": "0.1",
+  "description": "Download YouTube videos!",
+  "permissions": ["activeTab"],
+  "browser_action": {
+    "default_popup": "index.html"
+  },
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/watch*"],
+      "js": ["scripts/button.js", "scripts/util.js", "scripts/index.js"]
+    }
+  ]
+}
