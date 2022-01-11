@@ -3,12 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-    scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
     <title>Document</title>
   </head>
   <body>
-    <h1>Schlumpf</h1>
-
     <button id="console-log-button">Log!</button>
+
+    <label id="device-select-label">Device</label>
+    <select id="device-select">
+      <option></option>
+      <option value="add">add Device</option>
+    </select>
+
+    <div id="add-device-window" hidden="true">
+      <button id="close-device-window">
+        <svg
+          viewBox="0 0 24 24"
+          preserveAspectRatio="xMidYMid meet"
+          focusable="false"
+          class="style-scope yt-icon"
+          style="pointer-events: none; display: block; width: 100%; height: 100%"
+        >
+          <g class="style-scope yt-icon">
+            <path
+              d="M12.7,12l6.6,6.6l-0.7,0.7L12,12.7l-6.6,6.6l-0.7-0.7l6.6-6.6L4.6,5.4l0.7-0.7l6.6,6.6l6.6-6.6l0.7,0.7L12.7,12z"
+              class="style-scope yt-icon"
+            ></path>
+          </g>
+        </svg>
+      </button>
+      <div id="qrcode"></div>
+    </div>
+
+    <script src="scripts/QRCode.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/util.js"></script>
+    <script type="module" src="scripts/extensionPopup.js"></script>
   </body>
 </html>
 

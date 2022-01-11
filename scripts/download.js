@@ -84,17 +84,6 @@ function updateTitleLabel() {
   }
 }
 
-function generateQRCode() {
-  let response = httpGet(`${Config.HOST}:${Config.PORT}/generate`)
-  if (!response.success) {
-    console.log('Error on /generate:')
-    console.log(response.error)
-    return undefined
-  }
-  let uuid = response.code
-  console.log(uuid)
-}
-
 function generateDownload() {
   let url_parameter = readUrl()
 
@@ -108,7 +97,7 @@ function generateDownload() {
   return {
     videoId: url_parameter['v'],
     title: title,
-    quality: quality
+    quality: quality,
   }
 }
 

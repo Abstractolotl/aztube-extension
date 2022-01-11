@@ -1,4 +1,4 @@
 class Config {
-  static HOST = 'https://aztube.lucaspape.de'
+  static HOST = 'http://de2.lucaspape.de'
   static PORT = 4020
 }
