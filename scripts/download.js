@@ -8,15 +8,18 @@ function openDownloadWindow() {
   let overlay = document.createElement('div')
   let popup = document.createElement('div')
   let titleInput = document.createElement('input')
+  let fileExtensionLabel = document.createElement('label')
   let videoSelectionDropdown = document.createElement('select')
   let sendButton = document.createElement('button')
 
   overlay.addEventListener('click', closeDownloadWindow)
+  videoSelectionDropdown.addEventListener('change', updateTitleLabel)
 
   // Classes
   overlay.classList.add('download-overlay')
   popup.classList.add('download-popup')
   titleInput.classList.add('download-title-input')
+  fileExtensionLabel.classList.add('download-file-extension-label')
   videoSelectionDropdown.classList.add('download-video-selection-dropdown')
   sendButton.classList.add('send-button')
 
@@ -24,6 +27,7 @@ function openDownloadWindow() {
   document.body.appendChild(overlay)
   document.body.appendChild(popup)
   popup.appendChild(titleInput)
+  popup.appendChild(fileExtensionLabel)
   popup.appendChild(videoSelectionDropdown)
   popup.appendChild(sendButton)
 
@@ -50,6 +54,8 @@ function openDownloadWindow() {
     videoSelectionDropdown.appendChild(option)
   }
 
+  updateTitleLabel()
+
   titleInput.value = document.querySelector('#container > h1 > yt-formatted-string').innerText
 
   if (hasInvalidCharacters(titleInput.value)) {
@@ -65,6 +71,17 @@ function openDownloadWindow() {
 function closeDownloadWindow() {
   document.querySelector('.download-overlay').remove()
   document.querySelector('.download-popup').remove()
+}
+
+function updateTitleLabel() {
+  let videoSelectionDropdown = document.querySelector('.download-video-selection-dropdown')
+  let fileExtensionLabel = document.querySelector('.download-file-extension-label')
+  let quality = videoSelectionDropdown.value
+  if (quality === 'Audio') {
+    fileExtensionLabel.innerText = '.mp3'
+  } else {
+    fileExtensionLabel.innerText = '.mp4'
+  }
 }
 
 function generateQRCode() {
@@ -88,8 +105,7 @@ function generateDownload() {
     quality = 'audio'
   }
 
-  return
-  videoInformation = {
+  return {
     videoId: url_parameter['v'],
     title: title,
     quality: quality
