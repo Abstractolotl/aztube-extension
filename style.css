@@ -65,8 +65,7 @@ height: 100% !important;
 
 .download-title-input,
 .download-video-selection-dropdown {
-  /* nice input styling */
-  width: 50% !important;
+  width: 35rem !important;
   height: 3rem !important;
   padding: 0.5rem !important;
   margin: 0 !important;
@@ -83,9 +82,9 @@ height: 100% !important;
   display: block !important;
   margin-top: 1rem !important;
   margin-bottom: 1rem !important;
+}
+
+#select-option {
+  color: #fff;
   background-color: rgb(33, 33, 33);
-  color: rgb(33, 33, 33);
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  appearance: none !important;
 }

@@ -39,6 +39,7 @@ function openDownloadWindow() {
     let option = document.createElement('option')
     option.value = qualities[i]
     option.text = qualities[i]
+    option.id = 'select-option'
     videoSelectionDropdown.appendChild(option)
   }
 }
