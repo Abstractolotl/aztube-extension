@@ -49,6 +49,17 @@ function openDownloadWindow() {
     option.id = 'select-option'
     videoSelectionDropdown.appendChild(option)
   }
+
+  titleInput.value = document.querySelector('#container > h1 > yt-formatted-string').innerText
+
+  if (hasInvalidCharacters(titleInput.value)) {
+    titleInput.value = removeInvalidCharacters(titleInput.value)
+
+    let tooltip = document.createElement('div')
+    tooltip.classList.add('tooltip')
+    tooltip.innerHTML = 'Invalid characters in title'
+    titleInput.appendChild(tooltip)
+  }
 }
 
 function closeDownloadWindow() {
@@ -77,11 +88,18 @@ function generateDownload() {
     quality = 'audio'
   }
 
-  console.log(
-    (videoInformation = {
-      videoId: url_parameter['v'],
-      title: title,
-      quality: quality
-    })
-  )
+  return
+  videoInformation = {
+    videoId: url_parameter['v'],
+    title: title,
+    quality: quality
+  }
+}
+
+function hasInvalidCharacters(str) {
+  return /[\\\/:*?"<>|]/.test(str)
+}
+
+function removeInvalidCharacters(str) {
+  return str.replace(/[\\\/:*?"<>|]/g, '')
 }
