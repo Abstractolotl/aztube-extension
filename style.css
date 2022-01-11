@@ -89,9 +89,10 @@ height: 100% !important;
   background-color: rgb(33, 33, 33);
 }
 
-/* tooltip styling */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
+.download-file-extension-label {
+  display: inline-block !important;
+  color: #fff;
+  background-color: rgb(33, 33, 33);
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
 }
