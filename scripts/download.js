@@ -9,6 +9,7 @@ function openDownloadWindow() {
   let popup = document.createElement('div')
   let titleInput = document.createElement('input')
   let videoSelectionDropdown = document.createElement('select')
+  let sendButton = document.createElement('button')
 
   overlay.addEventListener('click', closeDownloadWindow)
 
@@ -17,22 +18,28 @@ function openDownloadWindow() {
   popup.classList.add('download-popup')
   titleInput.classList.add('download-title-input')
   videoSelectionDropdown.classList.add('download-video-selection-dropdown')
+  sendButton.classList.add('send-button')
 
   // Appends
   document.body.appendChild(overlay)
   document.body.appendChild(popup)
   popup.appendChild(titleInput)
   popup.appendChild(videoSelectionDropdown)
+  popup.appendChild(sendButton)
 
   // Attributes
   titleInput.setAttribute('placeholder', 'Title')
   titleInput.setAttribute('label', 'Title')
+  titleInput.id = 'titleInput'
   videoSelectionDropdown.setAttribute('placeholder', 'Video Selection')
+  videoSelectionDropdown.id = 'videoSelectionDropdown'
   videoSelectionDropdown.setAttribute('label', 'Quality')
+  sendButton.innerHTML = 'Send'
+  sendButton.onclick = generateDownload
 
   // Dropdown stuff
   //Create array of options to be added
-  let qualities = ['None (Audio only)', '480p', '720p', '1080p']
+  let qualities = ['Audio', '480p', '720p', '1080p']
 
   //Create and append the options
   for (let i = 0; i < qualities.length; i++) {
@@ -58,4 +65,23 @@ function generateQRCode() {
   }
   let uuid = response.code
   console.log(uuid)
+}
+
+function generateDownload() {
+  let url_parameter = readUrl()
+
+  let title = document.getElementById('titleInput').value
+  let quality = document.getElementById('videoSelectionDropdown').value
+
+  if (quality === 'None (Audio only)') {
+    quality = 'audio'
+  }
+
+  console.log(
+    (videoInformation = {
+      videoId: url_parameter['v'],
+      title: title,
+      quality: quality
+    })
+  )
 }

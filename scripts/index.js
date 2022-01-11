@@ -16,11 +16,6 @@ window.addEventListener('yt-navigate-finish', function (event) {
 
 function onLoaded() {
   console.log('Done Loading Page!')
-  let url_parameter = readUrl()
-
-  let videoInformation = {
-    videoId: url_parameter['v']
-  }
 
   let btn = document.createElement('button')
   btn.id = 'aztube-download-btn'
