@@ -10,7 +10,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #212121;
+  background-color: #fff;
   transition: 3s;
 }
 
@@ -34,14 +34,14 @@ body {
   right: 0;
   width: 40px;
   height: 40px;
-  background-color: #212121;
+  background-color: #fff;
   border: none;
-  color: #fff;
+  color: #212121;
   cursor: pointer;
   margin-top: 10px;
   margin-right: 10px;
 }
 
 #close-device-window > svg {
-  fill: #fff;
+  fill: #212121;
 }
