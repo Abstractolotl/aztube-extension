@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body {
   width: 400px;
   height: 500px;
-  background-color: #212121;
+  background-color: #fff;
 }
 
 #add-device-window {
@@ -20,28 +22,63 @@ body {
 }
 
 #qrcode {
+  z-index: 666;
+}
+
+#qrcode,
+#qrcode-placeholder {
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 250px;
   height: 250px;
 }
 
-#close-device-window {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border: none;
-  color: #212121;
-  cursor: pointer;
-  margin-top: 10px;
-  margin-right: 10px;
+svg g text,
+#get-the-app {
+  font-family: 'Roboto', sans-serif;
 }
 
-#close-device-window > svg {
-  fill: #000;
+#get-the-app {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  color: #121212;
+  background-color: #fff;
+  font-size: 15px;
+}
+
+#device-select-label {
+  position: absolute;
+  top: 3.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  font-weight: bold;
+  color: #121212;
+}
+
+#scan-info-text {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: #121212;
+}
+
+#device-select {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 180px;
+}
+
+#device-select:focus {
+  outline: none;
 }
