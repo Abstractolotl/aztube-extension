@@ -5,7 +5,6 @@ let device = deviceDropdown.value
 let timer
 
 deviceDropdown.addEventListener('change', () => {
-  console.log(deviceDropdown.value)
   if (deviceDropdown.value === 'add') {
     deviceDropdown.value = device
     timer = window.setInterval(updateQRCode, 25000)
@@ -18,7 +17,6 @@ deviceDropdown.addEventListener('change', () => {
 closeDeviceWindow.addEventListener('click', () => {
   addDeviceWindow.hidden = true
   clearInterval(timer)
-  console.log('jona du hs')
 })
 
 function updateQRCode() {
@@ -26,8 +24,6 @@ function updateQRCode() {
   div.innerHTML = ''
 
   let code = generateQRCode()
-  console.log(code)
-
   let qrcode = new QRCode(div, {
     text: code,
     width: 250,

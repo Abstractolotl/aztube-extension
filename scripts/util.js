@@ -49,7 +49,6 @@ function createElementFromHTML(htmlString) {
   div.innerHTML = htmlString.trim()
 
   // Change this to div.childNodes to support multiple top-level nodes
-  console.log(div.firstChild)
   return div.firstChild
 }
 
@@ -57,7 +56,6 @@ function htmlToElement(html) {
   var template = document.createElement('template')
   html = html.trim() // Never return a text node of whitespace as the result
   template.innerHTML = html
-  console.log(template.content.firstChild)
   return template.content.firstChild
 }
 
