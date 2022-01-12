@@ -6,7 +6,6 @@ let tries = 0
 let refreshTimer
 
 deviceDropdown.addEventListener('change', () => {
-  console.log(deviceDropdown.value)
   if (deviceDropdown.value === 'add') {
     deviceDropdown.value = device
     refreshTimer = window.setInterval(updateQRCode, 25000)
@@ -38,9 +37,9 @@ function updateQRCode() {
     text: code,
     width: 250,
     height: 250,
-    colorDark: '#ffffff',
-    colorLight: '#212121',
-    correctLevel: QRCode.CorrectLevel.H,
+    colorDark: '#212121',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
   })
   qrcode.hidden = true
 }
