@@ -7,7 +7,6 @@ window.addEventListener('yt-navigate-finish', function (event) {
     ) {
       onLoaded()
     } else {
-      console.log('checking again')
       setTimeout(checkIfLoaded, 5)
     }
   }
