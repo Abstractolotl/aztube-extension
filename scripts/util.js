@@ -65,3 +65,17 @@ function httpGet(url) {
   xmlHttp.send(null)
   return xmlHttp.responseText
 }
+
+function httpPost(url, data) {
+  var xmlHttp = new XMLHttpRequest()
+  xmlHttp.open('POST', url, false) // false for synchronous request
+  //xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.setRequestHeader('Content-Type', 'application/json')
+  //xmlHttp.responseType = 'json'
+  xmlHttp.send(data)
+  let json = ''
+  try {
+    json = JSON.parse(xmlHttp.responseText)
+  } catch (err) {}
+  return json
+}
