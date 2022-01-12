@@ -7,13 +7,60 @@
     <title>Document</title>
   </head>
   <body>
-    <label id="device-select-label">Device</label>
+    <label id="device-select-label">Devices</label>
     <select id="device-select">
       <option></option>
       <option value="add">add Device</option>
     </select>
 
-    <div id="add-device-window" hidden="true">
+    <div id="qrcode"></div>
+
+    <div id="qrcode-placeholder">
+      <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+        <g id="Layer_1">
+          <title>Layer 1</title>
+          <path id="svg_1" d="m50,0" opacity="undefined" stroke-linecap="undefined" stroke-linejoin="undefined" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_3" y2="0" x2="60" y1="0" x1="0" stroke-width="6" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_4" y2="0" x2="250" y1="0" x1="190" stroke-width="6" stroke="#000" fill="none" />
+          <path id="svg_5" d="m50,249.99998" opacity="undefined" stroke-linecap="undefined" stroke-linejoin="undefined" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_6" y2="249.99998" x2="60" y1="249.99998" x1="0" stroke-width="6" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_7" y2="250.30302" x2="250" y1="250.30302" x1="190" stroke-width="6" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_8" y2="60" x2="0" y1="0" x1="0" stroke-width="6" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_9" y2="60" x2="250.00002" y1="0" x1="250.00002" stroke-width="6" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_10" y2="250.00002" x2="0.27027" y1="190.00002" x1="0.27027" stroke-width="6" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_11" y2="250" x2="250.00002" y1="190" x1="250.00002" stroke-width="6" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_12" y2="125" x2="170" y1="125" x1="80" stroke-width="3" stroke="#000" fill="none" />
+          <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_13" y2="170" x2="125" y1="80" x1="125" stroke-width="3" stroke="#000" fill="none" />
+          <text font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Rubik'" font-size="24" id="svg_14" y="220" x="59.94975" stroke-width="0" stroke="#000" fill="#000000">Add Device</text>
+        </g>
+      </svg>
+    </div>
+
+    <div id="scan-info-text-wrapper" hidden="true">
+      <p id="scan-info-text">Scan this QR Code with the AzTube App!</p>
+    </div>
+
+    <div>
+      <a id="get-the-app" href="https://github.com/NouCake/aztube-app/releases/latest" target="_blank">Get the AzTube app!</a>
+    </div>
+
+    <script src="scripts/QRCode.min.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/util.js"></script>
+    <script type="module" src="scripts/extensionPopup.js"></script>
+  </body>
+</html>
+
+<!---   
+"default_icon": {
+      "16": "img/icon16.png",
+      "32": "img/icon32.png",
+      "48": "img/icon48.png"
+    }
+-->
+
+<!-- 
+<div id="add-device-window" hidden="true">
       <button id="close-device-window">
         <svg
           viewBox="0 0 24 24"
@@ -32,18 +79,4 @@
       </button>
       <div id="qrcode"></div>
     </div>
-
-    <script src="scripts/QRCode.min.js"></script>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/util.js"></script>
-    <script type="module" src="scripts/extensionPopup.js"></script>
-  </body>
-</html>
-
-<!---   
-"default_icon": {
-      "16": "img/icon16.png",
-      "32": "img/icon32.png",
-      "48": "img/icon48.png"
-    }
 -->
