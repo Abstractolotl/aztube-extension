@@ -6,22 +6,23 @@ span.choose {
 
 /*Styling Selectbox*/
 .dropdown {
-  width: 180px;
+  width: 320px;
   display: inline-block;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 0 2px rgb(204, 204, 204);
   transition: all 0.5s ease;
   position: relative;
-  font-size: 14px;
+  font-size: 20px;
   color: #474747;
-  height: 40px;
+  height: 50px;
   text-align: left;
-  margin-left: auto;
+  /*margin-left: auto;*/
+  margin-left: 40px;
   margin-right: 20px;
+  margin-top: 20px;
   vertical-align: top;
-
-  margin-bottom: 7px;
+  user-select: none;
 }
 .dropdown:focus {
   outline: none;
