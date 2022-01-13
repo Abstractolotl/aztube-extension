@@ -1,18 +1,14 @@
 let deviceDropdown = document.getElementById('device-select')
 let closeDeviceWindow = document.getElementById('close-device-window')
-let addDeviceWindow = document.getElementById('add-device-window')
+let qrCode = document.getElementById('qrcode')
 let device = deviceDropdown.value
 let tries = 0
 let refreshTimer
 
-deviceDropdown.addEventListener('change', () => {
-  if (deviceDropdown.value === 'add') {
-    deviceDropdown.value = device
-    refreshTimer = window.setInterval(updateQRCode, 25000)
-    updateQRCode()
-
-    addDeviceWindow.hidden = false
-  }
+qrCode.addEventListener('click', () => {
+  window.clearInterval(refreshTimer)
+  refreshTimer = window.setInterval(updateQRCode, 25000)
+  updateQRCode()
 })
 
 function updateQRCode() {
@@ -22,8 +18,7 @@ function updateQRCode() {
     return
   }
   tries++
-  let div = document.getElementById('qrcode')
-  div.innerHTML = ''
+  qrCode.innerHTML = ''
 
   let code = generateQRCode()
   console.log(code)
@@ -33,7 +28,7 @@ function updateQRCode() {
       checkCode(c, timer)
     }, 500)
   }
-  let qrcode = new QRCode(div, {
+  new QRCode(qrCode, {
     text: code,
     width: 250,
     height: 250,
@@ -41,7 +36,6 @@ function updateQRCode() {
     colorLight: '#ffffff',
     correctLevel: QRCode.CorrectLevel.H,
   })
-  qrcode.hidden = true
 }
 
 function generateQRCode() {
@@ -75,7 +69,7 @@ function checkCode(code, timer) {
 
 function stopAddDevice() {
   tries = 0
-  addDeviceWindow.hidden = true
+  qrCode.innerHTML = ''
   clearInterval(refreshTimer)
 }
 
@@ -102,10 +96,6 @@ function updateDevicesDropdown() {
       deviceDropdown.appendChild(deviceElement)
     }
   }
-  let addElement = document.createElement('option')
-  addElement.value = 'add'
-  addElement.innerHTML = 'add Device'
-  deviceDropdown.appendChild(addElement)
   deviceDropdown.value = selection
 }
 
