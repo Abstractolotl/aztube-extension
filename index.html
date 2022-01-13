@@ -4,12 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="custom-selector.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="device-select-box">
       <label id="device-select-label">Device</label>
-      <select id="device-select"></select>
+
+      <div class="dropdown">
+        <div class="select">
+          <span>Select Device</span>
+          <i class="fa fa-chevron-left"></i>
+        </div>
+        <input type="hidden" name="none" id="device-selection" />
+        <ul class="dropdown-menu"></ul>
+      </div>
     </div>
 
     <div class="qrcode-frame make-it-fast">
@@ -44,10 +53,12 @@
       <a id="get-the-app" href="https://github.com/NouCake/aztube-app/releases/latest" target="_blank">Get the AzTube app!</a>
     </div>
 
+    <script src="scripts/jquery-3.6.0.min.js"></script>
     <script src="scripts/QRCode.min.js"></script>
     <script src="scripts/config.js"></script>
     <script src="scripts/util.js"></script>
     <script src="scripts/DeviceManager.js"></script>
+    <script src="scripts/custom-selector.js"></script>
     <script type="module" src="scripts/extensionPopup.js"></script>
   </body>
 </html>
