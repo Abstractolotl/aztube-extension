@@ -72,15 +72,13 @@ async function openDownloadWindow() {
   qualityOptions.forEach((item) => {
     let resolution = item.innerText;
 
-    if(resolution !== "Auto"){
-      let cleanResolution = resolution.replace(' HD', '').replace(' 4K', '').replace(' 8K', '')
+    let cleanResolution = resolution.replace(' HD', '').replace(' 4K', '').replace(' 8K', '')
 
-      allowedQualities.forEach((allowedQuality) => {
-        if(allowedQuality === cleanResolution){
-          qualities.push({ text: resolution, value: cleanResolution });
-        }
-      });
-    }
+    allowedQualities.forEach((allowedQuality) => {
+      if(allowedQuality === cleanResolution){
+        qualities.push({ text: resolution, value: cleanResolution });
+      }
+    });
   });
 
   console.log(qualities);
