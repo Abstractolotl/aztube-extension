@@ -1,13 +1,16 @@
-let deviceDropdown = document.getElementById('device-select')
+let deviceDropdown = document.querySelector('.dropdown-menu')
+let deviceSelection = document.getElementById('device-selection')
 let closeDeviceWindow = document.getElementById('close-device-window')
+let scanInfoTextWrapper = document.getElementById('scan-info-text-wrapper')
 let qrCode = document.getElementById('qrcode')
-let device = deviceDropdown.value
+let device = deviceSelection.value
 let tries = 0
 let refreshTimer
 
 qrCode.addEventListener('click', () => {
   window.clearInterval(refreshTimer)
   refreshTimer = window.setInterval(updateQRCode, 25000)
+  scanInfoTextWrapper.removeAttribute('hidden')
   updateQRCode()
 })
 
@@ -70,6 +73,8 @@ function checkCode(code, timer) {
 function stopAddDevice() {
   tries = 0
   qrCode.innerHTML = ''
+  scanInfoTextWrapper.setAttribute('hidden', true)
+
   clearInterval(refreshTimer)
 }
 
@@ -83,20 +88,31 @@ function updateDevicesDropdown() {
   deviceDropdown.innerHTML = ''
 
   let devices = DeviceManager.getDevices()
-  let selection = DeviceManager.getSelection()
+  let selectedDevice = DeviceManager.getSelectedDevice()
   if (!devices || devices.length === 0) {
-    let noneElement = document.createElement('option')
-    noneElement.value = 'none'
+    let noneElement = document.createElement('li')
+    noneElement.id = 'none'
     deviceDropdown.appendChild(noneElement)
   } else {
     for (let device of devices) {
-      let deviceElement = document.createElement('option')
-      deviceElement.value = device.browserToken
+      let deviceElement = document.createElement('li')
+      deviceElement.id = device.browserToken
       deviceElement.innerHTML = device.deviceName
       deviceDropdown.appendChild(deviceElement)
     }
   }
-  deviceDropdown.value = selection
+  $('.dropdown .dropdown-menu li').click(function () {
+    $(this).parents('.dropdown').find('span').text($(this).text())
+    $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'))
+    localStorage.setItem('selectedDevice', $(this).attr('id'))
+  })
+  $('.dropdown-menu li').click(function () {
+    var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+      msg = '<span class="msg">Hidden input value: '
+    $('.msg').html(msg + input + '</span>')
+  })
+  $('#device-selection').name = selectedDevice.browserToken
+  $('.dropdown .select span').text(selectedDevice.deviceName)
 }
 
 updateDevicesDropdown()
