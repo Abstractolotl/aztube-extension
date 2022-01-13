@@ -1,4 +1,6 @@
-function openDownloadWindow() {
+let sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function openDownloadWindow() {
   if (document.querySelector('.download-overlay')) {
     closeDownloadWindow()
     return
@@ -37,14 +39,51 @@ function openDownloadWindow() {
   sendButton.innerHTML = 'Send'
   sendButton.onclick = generateDownload
 
+  let settingsButton = document.getElementsByClassName("ytp-settings-button")[0];
+  settingsButton.click();
+
+  await sleep(50);
+
+  let qualityMenu = document.getElementsByClassName("ytp-panel-menu")[0].lastChild;
+  qualityMenu.click();
+
+  await sleep(50);
+
+  let qualityOptions = [...document.getElementsByClassName("ytp-menuitem")];
+
   // Dropdown stuff
   //Create array of options to be added
   let qualities = [
-    { text: 'Audio', value: 'audio' },
-    { text: '480p', value: '480p' },
-    { text: '720p', value: '720p' },
-    { text: '1080p', value: '1080p' },
+    { text: 'Audio', value: 'audio' }
   ]
+
+  let allowedQualities = [
+    "144p",
+    "240p",
+    "360p",
+    "480p",
+    "720p",
+    "1080p",
+    "1440p",
+    "2160p",
+    "4320p"
+  ]
+
+  qualityOptions.forEach((item) => {
+    let resolution = item.innerText;
+
+    if(resolution !== "Auto"){
+      let cleanResolution = resolution.replace(' HD', '').replace(' 4K', '').replace(' 8K', '')
+
+      allowedQualities.forEach((allowedQuality) => {
+        if(allowedQuality === cleanResolution){
+          qualities.push({ text: resolution, value: cleanResolution });
+        }
+      });
+    }
+  });
+
+  console.log(qualities);
 
   //Create and append the options
   for (let i = 0; i < qualities.length; i++) {
