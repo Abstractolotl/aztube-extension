@@ -1,4 +1,12 @@
 window.addEventListener('yt-navigate-finish', function (event) {
+  load();
+})
+
+window.addEventListener('mousemove', function(event) {
+  load();
+})
+
+function load() {
   let checkIfLoaded = () => {
     if (document.querySelector('#menu-container > #menu > ytd-menu-renderer > #top-level-buttons-computed')) {
       onLoaded()
@@ -7,9 +15,15 @@ window.addEventListener('yt-navigate-finish', function (event) {
     }
   }
   checkIfLoaded()
-})
+}
 
 function onLoaded() {
+  var elementExists = document.getElementById('aztube-download-btn');
+
+  if(elementExists) {
+    return
+  }
+
   console.log('Done Loading Page!')
 
   let btn = document.createElement('button')
