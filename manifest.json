@@ -2,7 +2,7 @@
   "name": "AzTube Downloader",
   "version": "0.1",
   "description": "Download YouTube videos!",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
   "browser_action": {
     "default_popup": "index.html"
   },
@@ -11,6 +11,7 @@
     {
       "matches": ["*://www.youtube.com/watch*"],
       "js": [
+        "scripts/browser-polyfill.min.js",
         "scripts/config.js",
         "scripts/download.js",
         "scripts/button.js",
@@ -19,5 +20,8 @@
       ],
       "css": ["style.css"]
     }
-  ]
+  ],
+  "background": {
+    "scripts": ["scripts/config.js", "scripts/browser-polyfill.min.js", "scripts/util.js", "scripts/DeviceManager.js", "scripts/background.js"]
+  }
 }

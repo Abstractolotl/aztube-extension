@@ -2,16 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-    scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
     <title>Document</title>
   </head>
   <body>
-    <label id="device-select-label">Devices</label>
-    <select id="device-select">
-      <option></option>
-      <option value="add">add Device</option>
-    </select>
+    <label id="device-select-label">Device</label>
+    <select id="device-select"></select>
 
     <div id="qrcode"></div>
 
@@ -79,4 +76,19 @@
       </button>
       <div id="qrcode"></div>
     </div>
+
+    <script src="scripts/QRCode.min.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/util.js"></script>
+    <script src="scripts/DeviceManager.js"></script>
+    <script src="scripts/extensionPopup.js"></script>
+  </body>
+</html>
+
+<!---   
+"default_icon": {
+      "16": "img/icon16.png",
+      "32": "img/icon32.png",
+      "48": "img/icon48.png"
+    }
 -->
