@@ -3,7 +3,7 @@
 body {
   width: 400px;
   height: 500px;
-  background-color: #fff;
+  background-color: #212121;
 }
 
 #add-device-window {
@@ -12,7 +12,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #212121;
   transition: 3s;
 }
 
@@ -28,7 +28,7 @@ body {
 #qrcode,
 #qrcode-placeholder {
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 250px;
@@ -46,39 +46,69 @@ svg g text,
   right: 2px;
   margin-bottom: 5px;
   margin-right: 5px;
-  color: #121212;
-  background-color: #fff;
+  color: #fff;
+  background-color: #212121;
   font-size: 15px;
 }
 
-#device-select-label {
+#scan-info-text-wrapper {
   position: absolute;
-  top: 3.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 40px;
-  font-weight: bold;
-  color: #121212;
+  top: 80%;
+  left: 0;
+  height: 70px;
+  width: 100%;
+  font-size: 20px;
+  color: #fff;
 }
 
 #scan-info-text {
-  position: absolute;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   font-size: 20px;
-  color: #121212;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  color: #fff;
+}
+
+.device-select-box {
+  position: absolute;
+  top: 5px;
+  width: 100%;
+}
+
+#device-select-label {
+  position: relative;
+  font-size: 50px;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 20px;
 }
 
 #device-select {
   position: absolute;
-  top: 13%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: #fff;
   width: 180px;
+  height: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 20px;
 }
 
 #device-select:focus {
   outline: none;
+}
+
+.qrcode-frame {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
 }

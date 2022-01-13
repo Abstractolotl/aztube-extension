@@ -1,5 +1,6 @@
 let deviceDropdown = document.getElementById('device-select')
 let closeDeviceWindow = document.getElementById('close-device-window')
+let scanInfoTextWrapper = document.getElementById('scan-info-text-wrapper')
 let qrCode = document.getElementById('qrcode')
 let device = deviceDropdown.value
 let tries = 0
@@ -8,6 +9,7 @@ let refreshTimer
 qrCode.addEventListener('click', () => {
   window.clearInterval(refreshTimer)
   refreshTimer = window.setInterval(updateQRCode, 25000)
+  scanInfoTextWrapper.removeAttribute('hidden')
   updateQRCode()
 })
 
@@ -70,6 +72,8 @@ function checkCode(code, timer) {
 function stopAddDevice() {
   tries = 0
   qrCode.innerHTML = ''
+  scanInfoTextWrapper.setAttribute('hidden', true)
+
   clearInterval(refreshTimer)
 }
 
