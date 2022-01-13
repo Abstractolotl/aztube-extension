@@ -1,9 +1,9 @@
 window.addEventListener('yt-navigate-finish', function (event) {
-  load();
+  load()
 })
 
 window.addEventListener('mousemove', function(event) {
-  load();
+  load()
 })
 
 function load() {
@@ -18,7 +18,7 @@ function load() {
 }
 
 function onLoaded() {
-  var elementExists = document.getElementById('aztube-download-btn');
+  let elementExists = document.getElementById('aztube-download-btn')
 
   if(elementExists) {
     return

@@ -1,4 +1,4 @@
-let sleep = ms => new Promise(r => setTimeout(r, ms));
+let sleep = ms => new Promise(r => setTimeout(r, ms))
 
 async function openDownloadWindow() {
   if (document.querySelector('.download-overlay')) {
@@ -39,17 +39,17 @@ async function openDownloadWindow() {
   sendButton.innerHTML = 'Send'
   sendButton.onclick = generateDownload
 
-  let settingsButton = document.getElementsByClassName("ytp-settings-button")[0];
-  settingsButton.click();
+  let settingsButton = document.getElementsByClassName("ytp-settings-button")[0]
+  settingsButton.click()
 
-  await sleep(50);
+  await sleep(50)
 
-  let qualityMenu = document.getElementsByClassName("ytp-panel-menu")[0].lastChild;
-  qualityMenu.click();
+  let qualityMenu = document.getElementsByClassName("ytp-panel-menu")[0].lastChild
+  qualityMenu.click()
 
-  await sleep(50);
+  await sleep(50)
 
-  let qualityOptions = [...document.getElementsByClassName("ytp-menuitem")];
+  let qualityOptions = [...document.getElementsByClassName("ytp-menuitem")]
 
   // Dropdown stuff
   //Create array of options to be added
@@ -63,25 +63,28 @@ async function openDownloadWindow() {
     "360p",
     "480p",
     "720p",
+    "720p60",
     "1080p",
+    "1080p60",
     "1440p",
+    "1440p60",
     "2160p",
-    "4320p"
+    "2160p60"
   ]
 
   qualityOptions.forEach((item) => {
-    let resolution = item.innerText;
+    let resolution = item.innerText
 
     let cleanResolution = resolution.replace(' HD', '').replace(' 4K', '').replace(' 8K', '')
 
     allowedQualities.forEach((allowedQuality) => {
       if(allowedQuality === cleanResolution){
-        qualities.push({ text: resolution, value: cleanResolution });
+        qualities.push({ text: resolution, value: cleanResolution })
       }
-    });
-  });
+    })
+  })
 
-  console.log(qualities);
+  console.log(qualities)
 
   //Create and append the options
   for (let i = 0; i < qualities.length; i++) {
