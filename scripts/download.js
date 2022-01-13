@@ -43,13 +43,18 @@ function openDownloadWindow() {
 
   // Dropdown stuff
   //Create array of options to be added
-  let qualities = ['Audio', '480p', '720p', '1080p']
+  let qualities = [
+    { text: 'Audio', value: 'audio' },
+    { text: '480p', value: '480p' },
+    { text: '720p', value: '720p' },
+    { text: '1080p', value: '1080p' },
+  ]
 
   //Create and append the options
   for (let i = 0; i < qualities.length; i++) {
     let option = document.createElement('option')
-    option.value = qualities[i]
-    option.text = qualities[i]
+    option.value = qualities[i].value
+    option.text = qualities[i].text
     option.id = 'select-option'
     videoSelectionDropdown.appendChild(option)
   }
@@ -94,11 +99,23 @@ function generateDownload() {
     quality = 'audio'
   }
 
-  return {
+  let videoDetails = {
     videoId: url_parameter['v'],
     title: title,
     quality: quality,
   }
+
+  let message = {
+    cmd: 'download',
+    video: videoDetails,
+  }
+
+  console.log('sent Download instruction')
+
+  browser.runtime.sendMessage(message).then((response) => {
+    // displayErrorToast(response)
+    console.log(response)
+  })
 }
 
 function hasInvalidCharacters(str) {

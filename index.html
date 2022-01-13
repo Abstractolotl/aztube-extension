@@ -2,16 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-    scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
     <title>Document</title>
   </head>
   <body>
     <label id="device-select-label">Device</label>
-    <select id="device-select">
-      <option></option>
-      <option value="add">add Device</option>
-    </select>
+    <select id="device-select"></select>
 
     <div id="add-device-window" hidden="true">
       <button id="close-device-window">
@@ -36,7 +33,8 @@
     <script src="scripts/QRCode.min.js"></script>
     <script src="scripts/config.js"></script>
     <script src="scripts/util.js"></script>
-    <script type="module" src="scripts/extensionPopup.js"></script>
+    <script src="scripts/DeviceManager.js"></script>
+    <script src="scripts/extensionPopup.js"></script>
   </body>
 </html>
 

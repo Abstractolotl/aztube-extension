@@ -39,15 +39,15 @@ function updateQRCode() {
     height: 250,
     colorDark: '#212121',
     colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.H
+    correctLevel: QRCode.CorrectLevel.H,
   })
   qrcode.hidden = true
 }
 
 function generateQRCode() {
-  let response = JSON.parse(httpGet(`${Config.HOST}:${Config.PORT}/api/v1/qr/generate`))
+  let response = JSON.parse(httpGet(`${Config.HOST}:${Config.PORT}/generate`))
   if (!response.success) {
-    console.log('Error on /api/v1/qr/generate:')
+    console.log('Error on /generate:')
     console.log(response.error)
 
     return
@@ -59,7 +59,7 @@ function generateQRCode() {
 }
 
 function checkCode(code, timer) {
-  let response = httpPost(`${Config.HOST}:${Config.PORT}/api/v1/qr/status`, `{ "code": "${code}" }`)
+  let response = httpPost(`${Config.HOST}:${Config.PORT}/status`, `{ "code": "${code}" }`)
   if (!response || !response.success) {
     clearInterval(timer)
 
@@ -77,11 +77,36 @@ function stopAddDevice() {
   tries = 0
   addDeviceWindow.hidden = true
   clearInterval(refreshTimer)
-  // to implement later
-  console.log('stop add device')
 }
 
 function addDevice(browserToken, deviceName) {
-  // to implement later
   console.log(`add device: browserToken: ${browserToken} deviceName:${deviceName}`)
+  DeviceManager.addAndSelectDevice(browserToken, deviceName)
+  updateDevicesDropdown()
 }
+
+function updateDevicesDropdown() {
+  deviceDropdown.innerHTML = ''
+
+  let devices = DeviceManager.getDevices()
+  let selection = DeviceManager.getSelection()
+  if (!devices || devices.length === 0) {
+    let noneElement = document.createElement('option')
+    noneElement.value = 'none'
+    deviceDropdown.appendChild(noneElement)
+  } else {
+    for (let device of devices) {
+      let deviceElement = document.createElement('option')
+      deviceElement.value = device.browserToken
+      deviceElement.innerHTML = device.deviceName
+      deviceDropdown.appendChild(deviceElement)
+    }
+  }
+  let addElement = document.createElement('option')
+  addElement.value = 'add'
+  addElement.innerHTML = 'add Device'
+  deviceDropdown.appendChild(addElement)
+  deviceDropdown.value = selection
+}
+
+updateDevicesDropdown()
