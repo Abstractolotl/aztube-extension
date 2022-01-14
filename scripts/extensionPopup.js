@@ -37,7 +37,7 @@ function updateQRCode() {
     height: 250,
     colorDark: '#212121',
     colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.H,
+    correctLevel: QRCode.CorrectLevel.H
   })
 }
 
@@ -89,6 +89,7 @@ function updateDevicesDropdown() {
 
   let devices = DeviceManager.getDevices()
   let selectedDevice = DeviceManager.getSelectedDevice()
+
   if (!devices || devices.length === 0) {
     let noneElement = document.createElement('li')
     noneElement.id = 'none'
@@ -101,6 +102,7 @@ function updateDevicesDropdown() {
       deviceDropdown.appendChild(deviceElement)
     }
   }
+
   $('.dropdown .dropdown-menu li').click(function () {
     $(this).parents('.dropdown').find('span').text($(this).text())
     $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'))
@@ -111,6 +113,11 @@ function updateDevicesDropdown() {
       msg = '<span class="msg">Hidden input value: '
     $('.msg').html(msg + input + '</span>')
   })
+
+  if (!selectedDevice) {
+    return
+  }
+
   $('#device-selection').name = selectedDevice.browserToken
   $('.dropdown .select span').text(selectedDevice.deviceName)
 }
