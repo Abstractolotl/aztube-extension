@@ -54,4 +54,26 @@ class DeviceManager {
     // select device
     localStorage.setItem('selectedDevice', browserToken)
   }
+
+  static removeDevice(browserToken) {
+    let devices = localStorage.getItem('devices')
+
+    let selectedDevice = localStorage.getItem('selectedDevice')
+
+    if (selectedDevice === browserToken) {
+      localStorage.removeItem('selectedDevice')
+    }
+
+    if (!devices) {
+      devices = []
+    } else {
+      devices = JSON.parse(devices)
+    }
+
+    let index = devices.findIndex((device) => device.browserToken === browserToken)
+    devices.splice(index, 1)
+    localStorage.setItem('devices', JSON.stringify(devices))
+
+    console.log('device removed')
+  }
 }

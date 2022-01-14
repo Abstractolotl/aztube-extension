@@ -21,7 +21,12 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       quality: videoDetails.quality
     }
 
-    httpPost(`${Config.HOST}:${Config.PORT}/download`, JSON.stringify(body))
+    let json = httpPost(`${Config.HOST}:${Config.PORT}/download`, JSON.stringify(body))
+
+    if (json.error === 'browserToken not Found') {
+      DeviceManager.removeDevice(browserToken)
+    }
+
     console.log('download triggered')
   } catch (error) {
     sendResponse(error)
