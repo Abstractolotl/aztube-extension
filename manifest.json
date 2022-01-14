@@ -14,7 +14,6 @@
         "scripts/browser-polyfill.min.js",
         "scripts/config.js",
         "scripts/download.js",
-        "scripts/button.js",
         "scripts/util.js",
         "scripts/index.js"
       ],
