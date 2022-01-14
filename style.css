@@ -51,7 +51,8 @@
 }
 
 .download-title-input,
-.download-video-selection-dropdown {
+.download-video-selection-dropdown,
+.author-input {
   width: 35rem !important;
   height: 3rem !important;
   padding: 0.5rem !important;
