@@ -11,8 +11,8 @@ async function openDownloadWindow() {
   let popup = document.createElement('div')
   let titleInput = document.createElement('input')
   let videoSelectionDropdown = document.createElement('select')
-  let sendButton = document.createElement('button')
   let authorInput = document.createElement('input')
+  let sendButton = document.createElement('button')
 
   overlay.addEventListener('click', closeDownloadWindow)
 
@@ -28,9 +28,9 @@ async function openDownloadWindow() {
   document.body.appendChild(overlay)
   document.body.appendChild(popup)
   popup.appendChild(titleInput)
+  popup.appendChild(authorInput)
   popup.appendChild(videoSelectionDropdown)
   popup.appendChild(sendButton)
-  popup.appendChild(authorInput)
 
   // Attributes
   titleInput.setAttribute('placeholder', 'Title')
