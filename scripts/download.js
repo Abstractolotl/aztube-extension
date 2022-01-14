@@ -134,6 +134,8 @@ function generateDownload() {
     // displayErrorToast(response)
     console.log(response)
   })
+
+  closeDownloadWindow()
 }
 
 function hasInvalidCharacters(str) {
