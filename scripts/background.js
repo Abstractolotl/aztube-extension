@@ -13,8 +13,6 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     let videoDetails = message.video
 
-    //if (!videoDetails.author) videoDetails.author = ''
-
     let body = {
       browserToken: browserToken,
       title: videoDetails.title,
