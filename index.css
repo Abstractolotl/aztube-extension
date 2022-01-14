@@ -35,6 +35,10 @@ body {
   height: 250px;
 }
 
+.qrcode-frame {
+  cursor: pointer;
+}
+
 svg g text,
 #get-the-app {
   font-family: 'Roboto', sans-serif;
