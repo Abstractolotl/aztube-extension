@@ -22,5 +22,10 @@
   ],
   "background": {
     "scripts": ["scripts/config.js", "scripts/browser-polyfill.min.js", "scripts/util.js", "scripts/DeviceManager.js", "scripts/background.js"]
-  }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com"
+    }
+  },
 }
