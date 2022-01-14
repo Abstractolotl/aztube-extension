@@ -21,7 +21,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       quality: videoDetails.quality
     }
 
-    let json = httpPost(`${Config.HOST}:${Config.PORT}/download`, JSON.stringify(body))
+    let json = httpPost(`${Config.HOST}/download`, JSON.stringify(body))
 
     if (json.error === 'browserToken not Found') {
       DeviceManager.removeDevice(browserToken)

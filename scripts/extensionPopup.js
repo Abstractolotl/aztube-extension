@@ -42,7 +42,7 @@ function updateQRCode() {
 }
 
 function generateQRCode() {
-  let response = JSON.parse(httpGet(`${Config.HOST}:${Config.PORT}/generate`))
+  let response = JSON.parse(httpGet(`${Config.HOST}/generate`))
   if (!response.success) {
     console.log('Error on /generate:')
     console.log(response.error)
@@ -56,7 +56,7 @@ function generateQRCode() {
 }
 
 function checkCode(code, timer) {
-  let response = httpPost(`${Config.HOST}:${Config.PORT}/status`, `{ "code": "${code}" }`)
+  let response = httpPost(`${Config.HOST}/status`, `{ "code": "${code}" }`)
   if (!response || !response.success) {
     clearInterval(timer)
 
