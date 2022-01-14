@@ -73,7 +73,5 @@ class DeviceManager {
     let index = devices.findIndex((device) => device.browserToken === browserToken)
     devices.splice(index, 1)
     localStorage.setItem('devices', JSON.stringify(devices))
-
-    console.log('device removed')
   }
 }
