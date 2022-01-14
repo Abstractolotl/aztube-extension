@@ -108,8 +108,6 @@ function generateDownload() {
   let quality = document.getElementById('videoSelectionDropdown').value
   let author = document.getElementById('authorInput').value
 
-  console.log(author)
-
   if (quality === 'None (Audio only)') {
     quality = 'audio'
   }
@@ -121,14 +119,10 @@ function generateDownload() {
     author: author
   }
 
-  console.log(videoDetails)
-
   let message = {
     cmd: 'download',
     video: videoDetails
   }
-
-  console.log('sent Download instruction')
 
   browser.runtime.sendMessage(message).then((response) => {
     // displayErrorToast(response)

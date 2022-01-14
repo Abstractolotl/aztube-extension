@@ -11,16 +11,16 @@
     {
       "matches": ["*://www.youtube.com/watch*"],
       "js": [
-        "scripts/browser-polyfill.min.js",
+        "scripts/lib/browser-polyfill.min.js",
         "scripts/config.js",
-        "scripts/download.js",
+        "scripts/youtube/download.js",
         "scripts/util.js",
-        "scripts/index.js"
+        "scripts/youtube/index.js"
       ],
-      "css": ["style.css"]
+      "css": ["styles/youtube/style.css"]
     }
   ],
   "background": {
-    "scripts": ["scripts/config.js", "scripts/browser-polyfill.min.js", "scripts/util.js", "scripts/DeviceManager.js", "scripts/background.js"]
+    "scripts": ["scripts/config.js", "scripts/lib/browser-polyfill.min.js", "scripts/util.js", "scripts/DeviceManager.js", "scripts/extension/background.js"]
   }
 }

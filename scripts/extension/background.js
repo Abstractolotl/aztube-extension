@@ -26,8 +26,6 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (json.error === 'browserToken not Found') {
       DeviceManager.removeDevice(browserToken)
     }
-
-    console.log('download triggered')
   } catch (error) {
     sendResponse(error)
     console.error(error)

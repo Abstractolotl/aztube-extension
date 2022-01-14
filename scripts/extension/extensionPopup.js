@@ -79,7 +79,7 @@ function stopAddDevice() {
 }
 
 function addDevice(browserToken, deviceName) {
-  console.log(`add device: browserToken: ${browserToken} deviceName:${deviceName}`)
+  console.log(`add device: browserToken: ${browserToken} deviceName: ${deviceName}`)
   DeviceManager.addAndSelectDevice(browserToken, deviceName)
   updateDevicesDropdown()
 }
