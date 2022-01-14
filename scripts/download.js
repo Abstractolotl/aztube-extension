@@ -1,4 +1,4 @@
-let sleep = ms => new Promise(r => setTimeout(r, ms))
+let sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 async function openDownloadWindow() {
   if (document.querySelector('.download-overlay')) {
@@ -12,6 +12,7 @@ async function openDownloadWindow() {
   let titleInput = document.createElement('input')
   let videoSelectionDropdown = document.createElement('select')
   let sendButton = document.createElement('button')
+  let authorInput = document.createElement('input')
 
   overlay.addEventListener('click', closeDownloadWindow)
 
@@ -21,6 +22,7 @@ async function openDownloadWindow() {
   titleInput.classList.add('download-title-input')
   videoSelectionDropdown.classList.add('download-video-selection-dropdown')
   sendButton.classList.add('send-button')
+  authorInput.classList.add('author-input')
 
   // Appends
   document.body.appendChild(overlay)
@@ -28,49 +30,37 @@ async function openDownloadWindow() {
   popup.appendChild(titleInput)
   popup.appendChild(videoSelectionDropdown)
   popup.appendChild(sendButton)
+  popup.appendChild(authorInput)
 
   // Attributes
   titleInput.setAttribute('placeholder', 'Title')
   titleInput.setAttribute('label', 'Title')
   titleInput.id = 'titleInput'
+  authorInput.setAttribute('placeholder', 'Author')
+  authorInput.id = 'authorInput'
   videoSelectionDropdown.setAttribute('placeholder', 'Video Selection')
   videoSelectionDropdown.id = 'videoSelectionDropdown'
   videoSelectionDropdown.setAttribute('label', 'Quality')
   sendButton.innerHTML = 'Send'
   sendButton.onclick = generateDownload
 
-  let settingsButton = document.getElementsByClassName("ytp-settings-button")[0]
+  let settingsButton = document.getElementsByClassName('ytp-settings-button')[0]
   settingsButton.click()
 
   await sleep(50)
 
-  let qualityMenu = document.getElementsByClassName("ytp-panel-menu")[0].lastChild
+  let qualityMenu = document.getElementsByClassName('ytp-panel-menu')[0].lastChild
   qualityMenu.click()
 
   await sleep(50)
 
-  let qualityOptions = [...document.getElementsByClassName("ytp-menuitem")]
+  let qualityOptions = [...document.getElementsByClassName('ytp-menuitem')]
 
   // Dropdown stuff
   //Create array of options to be added
-  let qualities = [
-    { text: 'Audio', value: 'audio' }
-  ]
+  let qualities = [{ text: 'Audio', value: 'audio' }]
 
-  let allowedQualities = [
-    "144p",
-    "240p",
-    "360p",
-    "480p",
-    "720p",
-    "720p60",
-    "1080p",
-    "1080p60",
-    "1440p",
-    "1440p60",
-    "2160p",
-    "2160p60"
-  ]
+  let allowedQualities = ['144p', '240p', '360p', '480p', '720p', '720p60', '1080p', '1080p60', '1440p', '1440p60', '2160p', '2160p60']
 
   qualityOptions.forEach((item) => {
     let resolution = item.innerText
@@ -78,13 +68,11 @@ async function openDownloadWindow() {
     let cleanResolution = resolution.replace(' HD', '').replace(' 4K', '').replace(' 8K', '')
 
     allowedQualities.forEach((allowedQuality) => {
-      if(allowedQuality === cleanResolution){
+      if (allowedQuality === cleanResolution) {
         qualities.push({ text: resolution, value: cleanResolution })
       }
     })
   })
-
-  console.log(qualities)
 
   //Create and append the options
   for (let i = 0; i < qualities.length; i++) {
@@ -96,6 +84,7 @@ async function openDownloadWindow() {
   }
 
   titleInput.value = document.querySelector('#container > h1 > yt-formatted-string').innerText
+  authorInput.value = document.querySelector('#text > a').innerText
 
   if (hasInvalidCharacters(titleInput.value)) {
     titleInput.value = removeInvalidCharacters(titleInput.value)
@@ -117,6 +106,9 @@ function generateDownload() {
 
   let title = document.getElementById('titleInput').value
   let quality = document.getElementById('videoSelectionDropdown').value
+  let author = document.getElementById('authorInput').value
+
+  console.log(author)
 
   if (quality === 'None (Audio only)') {
     quality = 'audio'
@@ -126,11 +118,14 @@ function generateDownload() {
     videoId: url_parameter['v'],
     title: title,
     quality: quality,
+    author: author
   }
+
+  console.log(videoDetails)
 
   let message = {
     cmd: 'download',
-    video: videoDetails,
+    video: videoDetails
   }
 
   console.log('sent Download instruction')

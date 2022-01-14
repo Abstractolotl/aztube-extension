@@ -6,6 +6,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 
     let browserToken = DeviceManager.getSelection()
+
     if (!browserToken) {
       throw 'No device connected'
     }
@@ -19,7 +20,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       title: videoDetails.title,
       author: videoDetails.author,
       videoId: videoDetails.videoId,
-      quality: videoDetails.quality,
+      quality: videoDetails.quality
     }
 
     httpPost(`${Config.HOST}:${Config.PORT}/download`, JSON.stringify(body))
