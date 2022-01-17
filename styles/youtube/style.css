@@ -38,86 +38,168 @@
 }
 
 .download-popup {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 90% !important;
-  max-width: 700px !important;
-  height: 35rem !important;
-  padding: 1rem !important;
-  background-color: var(--main-background);
+  font-family: "Calibri", sans;
+  font-weight: 300;
+
+  background-color: black;
+  width: 420px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  border-radius: 15px;
+  border: 2px solid #888;
+  padding: 0px 25px 20px 25px;
   z-index: 2667;
+  font-size: 12pt;
 }
 
-.download-title-input,
-.download-video-selection-dropdown,
-.author-input {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 40rem !important;
-  height: 3rem !important;
-  padding: 0.5rem !important;
-  border: none !important;
-  border: 1px solid var(--main-foreground) !important;
-  background-color: transparent !important;
-  color: var(--main-text-color) !important;
-  font-size: 1.5rem !important;
-  font-weight: bold !important;
-  outline: none !important;
-  display: block !important;
-  margin-top: 1rem !important;
-  margin-bottom: 1rem !important;
-  border-radius: 10px !important;
+.download-popup > * {
+  margin-top: 15px;
 }
 
-.download-title-input,
-.author-input {
-  margin-bottom: 3rem !important;
+.az-input {
+  display: flex;
+  border-radius: 6px;
+  height: 35px;
+
+  border: 2px solid #888;
 }
 
-.download-title-input,
-.author-input {
-  /* padding text inside the input field */
-  padding-left: 20px !important;
-  padding-right: 20px !important;
+
+.az-input > button {
+  outline: none;
+  border: none;
+  background-color: #00000000;
+  color: white;
 }
 
-.download-title-input {
-  padding: 10px;
+.az-input > label {
+  line-height: 33px;
+  width: 75px;
+  color: white;
+  background-color: #888;
+  text-align: center;
+
 }
 
-.download-video-selection-dropdown {
-  width: 44rem !important;
+.az-input > input {
+  color: white;
+  padding-left: 5px;
+  width: 100%;
+  
+
+  outline: none;
+  border: none;
+  background-color: #00000000;
 }
 
-.send-button {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  margin-top: 10rem !important;
-  margin-bottom: 1rem !important;
-  height: 4rem !important;
-  width: 8rem !important;
-  padding: 0.5rem !important;
-  border: 1px solid var(--main-foreground) !important;
-  background-color: transparent !important;
-  color: var(--main-text-color) !important;
-  font-size: 2rem !important;
-  font-weight: bold !important;
-  outline: none !important;
-  display: block !important;
+.az-input > select {
+  display: inline-block;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: #00000000;
+  color: white;
+}
+
+.az-input > .left {
+  display: inline-block;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.az-input > .right {
+  display: inline-block;
+  padding: 5px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.az-btn {
+  width: 50%;
   cursor: pointer;
 }
 
-#select-option {
-  color: var(--main-text-color);
-  background-color: var(--main-background);
+.az-input:focus-within {
+  box-shadow: 0 0 5px 1px #888;
 }
 
-#device-select-label {
-  display: inline-block !important;
-  color: var(--main-text-color);
-  background-color: var(--main-background);
-  font-size: 1.5rem !important;
-  font-weight: bold !important;
+.az-btn:active {
+  background-color: #88888888 !important;
+}
+
+.az-btn:hover {
+  box-shadow: 0 0 5px 1px #888;
+}
+
+
+.az-pressed {
+  background-color: #888 !important;
+  box-shadow: 0 0 5px 1px #888;
+}
+
+.az-nofocus:focus-within {
+  box-shadow: none;
+}
+
+.az-send {
+  float: right;
+
+  outline: none;
+  border: none;
+  color: white;
+  background-color: #888;
+  border: 2px solid #888;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.az-send:hover {
+  box-shadow: 0 0 5px 1px #888;
+}
+
+
+.az-dropdown {
+  cursor: pointer;
+}
+
+.az-dropdown:hover {
+  background-color: #88888888;
+}
+
+.az-dropdown:hover >  .az-dropdown-content{
+  display: block;
+}
+
+.az-dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  top:  35px;
+  background-color: white;
+
+}
+
+.az-dropdown-content > span {
+  display: block;
+  color: black;
+  background-color: white;
+}
+
+.az-dropdown-content > span:hover {
+  background-color: #888;
+}
+
+.az-video {
+  width: 50%; 
+  position: relative; 
+  line-height: 33px; 
+  color: white; 
+  text-align: center; 
+  display: inline-block; 
+  width: 50%;
 }

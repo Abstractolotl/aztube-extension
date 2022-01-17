@@ -85,3 +85,151 @@ span.choose {
 .dropdown .dropdown-menu li:active {
   background-color: #e2e2e2;
 }
+
+
+.az-input {
+  display: flex;
+  border-radius: 6px;
+  height: 35px;
+
+  border: 2px solid #888;
+}
+
+
+.az-input > button {
+  outline: none;
+  border: none;
+  background-color: #00000000;
+  color: white;
+}
+
+
+
+.az-input > label {
+  line-height: 33px;
+  width: 75px;
+  color: white;
+  background-color: #888;
+  text-align: center;
+
+}
+
+.az-input > input {
+  color: white;
+  padding-left: 5px;
+  width: 100%;
+  
+
+  outline: none;
+  border: none;
+  background-color: #00000000;
+}
+
+.az-input > select {
+  display: inline-block;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: #00000000;
+  color: white;
+}
+
+.az-input > .left {
+  display: inline-block;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.az-input > .right {
+  display: inline-block;
+  padding: 5px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.az-btn {
+  width: 50%;
+  cursor: pointer;
+}
+
+.az-input:focus-within {
+  box-shadow: 0 0 5px 1px #888;
+}
+
+.az-btn:active {
+  background-color: #88888888 !important;
+}
+
+.az-btn:hover {
+  box-shadow: 0 0 5px 1px #888;
+}
+
+
+.az-pressed {
+  background-color: #888 !important;
+  box-shadow: 0 0 5px 1px #888;
+}
+
+.az-nofocus:focus-within {
+  box-shadow: none;
+}
+
+.az-send {
+  float: right;
+
+  outline: none;
+  border: none;
+  color: white;
+  background-color: #888;
+  border: 2px solid #888;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.az-send:hover {
+  box-shadow: 0 0 5px 1px #888;
+}
+
+
+.az-dropdown {
+  cursor: pointer;
+}
+
+.az-dropdown:hover {
+  background-color: #88888888;
+}
+
+.az-dropdown:hover >  .az-dropdown-content{
+  display: block;
+}
+
+.az-dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  top:  35px;
+  background-color: white;
+
+}
+
+.az-dropdown-content > span {
+  display: block;
+  color: black;
+  background-color: white;
+}
+
+.az-dropdown-content > span:hover {
+  background-color: #888;
+}
+
+.az-video {
+  width: 50%; 
+  position: relative; 
+  line-height: 33px; 
+  color: white; 
+  text-align: center; 
+  display: inline-block; 
+  width: 50%;
+}

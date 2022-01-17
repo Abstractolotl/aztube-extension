@@ -9,59 +9,43 @@ async function openDownloadWindow() {
   // Elements
   let overlay = document.createElement('div')
   let popup = document.createElement('div')
-  let titleInput = document.createElement('input')
-  let videoSelectionDropdown = document.createElement('select')
-  let authorInput = document.createElement('input')
-  let sendButton = document.createElement('button')
 
   overlay.addEventListener('click', closeDownloadWindow)
 
   // Classes
   overlay.classList.add('download-overlay')
   popup.classList.add('download-popup')
-  titleInput.classList.add('download-title-input')
-  videoSelectionDropdown.classList.add('download-video-selection-dropdown')
-  sendButton.classList.add('send-button')
-  authorInput.classList.add('author-input')
 
   // Appends
   document.body.appendChild(overlay)
   document.body.appendChild(popup)
-  popup.appendChild(titleInput)
-  popup.appendChild(authorInput)
-  popup.appendChild(videoSelectionDropdown)
-  popup.appendChild(sendButton)
+  popup.innerHTML = "<h1 style=\"color: white; font-weight: 400;\">AzTube</h1> <div class=\"az-input\"> <label>Titel</label><input id=\"az-input-title\"/> </div> <div class=\"az-input\"> <label >Author</label><input id=\"az-input-author\" /> </div> <div class=\"az-input az-nofocus\"> <div id=\"az-btn-video\" class=\"az-dropdown az-video\" > <span id=\"az-btn-video-label\">Video</span> <div class=\"az-dropdown-content\"></div> </div><button id=\"az-btn-audio\" class=\"az-btn az-pressed\">Audio</button> </div> <div> <button id=\"az-btn-send\" class=\"az-btn az-send\">Send!</button> </div>"
+  
+  const inpTitle = document.getElementById("az-input-title");
+  const inpAuthor = document.getElementById("az-input-author");
+  const btnSend = document.getElementById("az-btn-send");
+  const btnAudio = document.getElementById("az-btn-audio");
+  const btnVideo = document.getElementById("az-btn-video")
+  const btnVideoDropdown = btnVideo.children[1];
+  const btnVideoLabel = btnVideo.children[0];
 
-  // Attributes
-  titleInput.setAttribute('placeholder', 'Title')
-  titleInput.setAttribute('label', 'Title')
-  titleInput.id = 'titleInput'
-  authorInput.setAttribute('placeholder', 'Author')
-  authorInput.id = 'authorInput'
-  videoSelectionDropdown.setAttribute('placeholder', 'Video Selection')
-  videoSelectionDropdown.id = 'videoSelectionDropdown'
-  videoSelectionDropdown.setAttribute('label', 'Quality')
-  sendButton.innerHTML = 'Send'
-  sendButton.onclick = generateDownload
+  btnSend.addEventListener("click", () => {
+    generateDownload(inpTitle.value, selectedQuality.value, inpAuthor.value);
+  })
 
+  //grabbing qualites
   let settingsButton = document.getElementsByClassName('ytp-settings-button')[0]
   settingsButton.click()
-
   await sleep(50)
-
   let qualityMenu = document.getElementsByClassName('ytp-panel-menu')[0].lastChild
   qualityMenu.click()
-
   await sleep(50)
-
   let qualityOptions = [...document.getElementsByClassName('ytp-menuitem')]
 
   // Dropdown stuff
   //Create array of options to be added
-  let qualities = [{ text: 'Audio', value: 'audio' }]
-
+  let qualities = []
   let allowedQualities = ['144p', '240p', '360p', '480p', '720p', '720p60', '1080p', '1080p60', '1440p', '1440p60', '2160p', '2160p60']
-
   qualityOptions.forEach((item) => {
     let resolution = item.innerText
 
@@ -74,26 +58,46 @@ async function openDownloadWindow() {
     })
   })
 
-  //Create and append the options
-  for (let i = 0; i < qualities.length; i++) {
-    let option = document.createElement('option')
-    option.value = qualities[i].value
-    option.text = qualities[i].text
-    option.id = 'select-option'
-    videoSelectionDropdown.appendChild(option)
+
+  let selectedQuality = {text:"Audio", value:"audio"};
+
+  for(const q of qualities) {
+    const span = document.createElement("span");
+    span.innerHTML = q.text;
+    span.addEventListener("click", (e) => {
+      selectedQuality = q;
+      btnVideo.quality = q;
+
+      btnVideoLabel.innerHTML = "Video (" + q.text + ")";
+      btnAudio.classList.remove("az-pressed");
+      btnVideo.classList.add("az-pressed");
+      btnVideo.classList.remove("az-dropdown");
+      setTimeout(() => {
+          btnVideo.classList.add("az-dropdown");
+      }, 1)
+    })
+    btnVideoDropdown.appendChild(span);
   }
 
-  titleInput.value = document.querySelector('#container > h1 > yt-formatted-string').innerText
-  authorInput.value = document.querySelector('#text > a').innerText
+  btnAudio.addEventListener("click", () => {
+    btnAudio.classList.add("az-pressed");
+    btnVideo.classList.remove("az-pressed");
 
-  if (hasInvalidCharacters(titleInput.value)) {
-    titleInput.value = removeInvalidCharacters(titleInput.value)
+    selectedQuality = {text:"Audio", value:"audio"};
+  })
 
-    let tooltip = document.createElement('div')
-    tooltip.classList.add('tooltip')
-    tooltip.innerHTML = 'Invalid characters in title'
-    titleInput.appendChild(tooltip)
-  }
+  btnVideo.addEventListener("click", () => {
+    selectedQuality = btnVideo.quality ? btnVideo.quality : qualities[0];
+    btnAudio.classList.remove("az-pressed");
+    btnVideo.classList.add("az-pressed");
+  });
+  
+
+  btnVideo.quality = qualities.find(q => q.value == "1080p") ?? qualities[0];
+  btnVideoLabel.innerHTML = "Video (" + btnVideo.quality.text + ")";
+
+  inpTitle.value = document.querySelector('#container > h1 > yt-formatted-string').innerText
+  inpAuthor.value = document.querySelector('#text > a').innerText
 }
 
 function closeDownloadWindow() {
@@ -101,12 +105,8 @@ function closeDownloadWindow() {
   document.querySelector('.download-popup').remove()
 }
 
-function generateDownload() {
+function generateDownload(title, quality, author) {
   let url_parameter = readUrl()
-
-  let title = document.getElementById('titleInput').value
-  let quality = document.getElementById('videoSelectionDropdown').value
-  let author = document.getElementById('authorInput').value
 
   if (quality === 'None (Audio only)') {
     quality = 'audio'
@@ -124,6 +124,7 @@ function generateDownload() {
     video: videoDetails
   }
 
+  console.log(message);
   browser.runtime.sendMessage(message).then((response) => {
     // displayErrorToast(response)
     console.log(response)
