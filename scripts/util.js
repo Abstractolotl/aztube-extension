@@ -42,23 +42,6 @@ function readUrl(url) {
   }
 }
 
-function createDownloadButton() {}
-
-function createElementFromHTML(htmlString) {
-  var div = document.createElement('div')
-  div.innerHTML = htmlString.trim()
-
-  // Change this to div.childNodes to support multiple top-level nodes
-  return div.firstChild
-}
-
-function htmlToElement(html) {
-  var template = document.createElement('template')
-  html = html.trim() // Never return a text node of whitespace as the result
-  template.innerHTML = html
-  return template.content.firstChild
-}
-
 function httpGet(url) {
   var xmlHttp = new XMLHttpRequest()
   xmlHttp.open('GET', url, false) // false for synchronous request
