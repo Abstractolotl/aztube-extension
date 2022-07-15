@@ -63,12 +63,12 @@ async function openDownloadWindow() {
 
   for(const q of qualities) {
     const span = document.createElement("span");
-    span.innerHTML = q.text;
+    span.innerText = q.text;
     span.addEventListener("click", (e) => {
       selectedQuality = q;
       btnVideo.quality = q;
 
-      btnVideoLabel.innerHTML = "Video (" + q.text + ")";
+      btnVideoLabel.innerText = "Video (" + q.text + ")";
       btnAudio.classList.remove("az-pressed");
       btnVideo.classList.add("az-pressed");
       btnVideo.classList.remove("az-dropdown");
@@ -94,7 +94,7 @@ async function openDownloadWindow() {
   
 
   btnVideo.quality = qualities.find(q => q.value == "1080p") ?? qualities[0];
-  btnVideoLabel.innerHTML = "Video (" + btnVideo.quality.text + ")";
+  btnVideoLabel.innerText = "Video (" + btnVideo.quality.text + ")";
 
   inpTitle.value = document.querySelector('#container > h1 > yt-formatted-string').innerText
   inpAuthor.value = document.querySelector('#text > a').innerText

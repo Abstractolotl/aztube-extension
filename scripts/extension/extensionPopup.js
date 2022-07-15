@@ -21,7 +21,7 @@ function updateQRCode() {
     return
   }
   tries++
-  qrCode.innerHTML = ''
+  qrCode.innerText = ''
 
   let code = generateQRCode()
   console.log(code)
@@ -72,7 +72,7 @@ function checkCode(code, timer) {
 
 function stopAddDevice() {
   tries = 0
-  qrCode.innerHTML = ''
+  qrCode.innerText = ''
   scanInfoTextWrapper.setAttribute('hidden', true)
 
   clearInterval(refreshTimer)
@@ -85,7 +85,7 @@ function addDevice(browserToken, deviceName) {
 }
 
 function updateDevicesDropdown() {
-  deviceDropdown.innerHTML = ''
+  deviceDropdown.innerText = ''
 
   let devices = DeviceManager.getDevices()
   let selectedDevice = DeviceManager.getSelectedDevice()
@@ -98,7 +98,7 @@ function updateDevicesDropdown() {
     for (let device of devices) {
       let deviceElement = document.createElement('li')
       deviceElement.id = device.browserToken
-      deviceElement.innerHTML = device.deviceName
+      deviceElement.innerText = device.deviceName
       deviceDropdown.appendChild(deviceElement)
     }
   }
