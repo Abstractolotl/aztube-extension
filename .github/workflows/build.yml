@@ -29,7 +29,7 @@ jobs:
         # uuid is only necessary when updating an existing addon,
         # omitting it will create a new addon
         uuid: '{55a5247f-9358-43d0-a43f-05a7a7fc8c2a}'
-        xpi: build/my-addon.xpi
+        xpi: aztube-extension.xpi
         manifest: manifest.json
         api-key: ${{ secrets.FIREFOX_API_KEY }}
         api-secret: ${{ secrets.FIREFOX_API_SECRET }}
