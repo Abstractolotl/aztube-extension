@@ -19,9 +19,6 @@ jobs:
       with:
         args: zip -qq -r aztube-extension.zip scripts styles index.html manifest.json
     - run: cp aztube-extension.zip aztube-extension.crx
-    - uses: pozetroninc/github-action-get-latest-release@master
-      with:
-        repository: ${{ github.repository }}
     - uses: actions/upload-artifact@v3.1.0
       with:
         name: app-bundle
