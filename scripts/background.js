@@ -1,5 +1,5 @@
 import './config.js';
-import './scripts/lib/browser-polyfill.min.js';
+import './lib/browser-polyfill.min.js';
 import './util.js';
 import './DeviceManager.js';
 
