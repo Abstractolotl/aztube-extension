@@ -9,15 +9,13 @@
   },
   "permissions": [
     "activeTab",
-    "storage"
-  ],
-  "host_permissions": [
+    "storage",
     "*://www.youtube.com/"
   ],
-  "action": {
+  "browser_action": {
     "default_popup": "index.html"
   },
-  "manifest_version": 3,
+  "manifest_version": 2,
   "content_scripts": [
     {
       "matches": [
@@ -36,8 +34,13 @@
     }
   ],
   "background": {
-    "service_worker": "scripts/worker.js",
-    "type": "module",
+    "scripts": [
+      "scripts/config.js",
+      "scripts/lib/browser-polyfill.min.js",
+      "scripts/util.js",
+      "scripts/DeviceManager.js",
+      "scripts/extension/background.js"
+    ],
     "browser_specific_settings": {
       "gecko": {
         "id": "addon@example.com"
