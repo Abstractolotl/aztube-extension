@@ -11,7 +11,7 @@
     "activeTab",
     "storage"
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "index.html"
   },
   "manifest_version": 3,
