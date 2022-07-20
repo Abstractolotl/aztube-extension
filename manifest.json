@@ -11,6 +11,9 @@
     "activeTab",
     "storage"
   ],
+  "host_permissions": [
+    "*://www.youtube.com/"
+  ],
   "action": {
     "default_popup": "index.html"
   },
