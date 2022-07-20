@@ -19,7 +19,11 @@ jobs:
       with:
         args: zip -qq -r aztube-extension.zip icons scripts styles index.html manifest.json
     - run: cp aztube-extension.zip aztube-extension.crx
-    - run: cp aztube-extension.zip aztube-extension.xpi
+    - run: rm manifest.json && mv manifest-v2.json manifest.json
+    - uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r aztube-extension-m2.zip icons scripts styles index.html manifest.json
+    - run: mv aztube-extension-m2.zip aztube-extension.xpi
     - uses: actions/upload-artifact@v3.1.0
       with:
         name: extension
@@ -41,4 +45,5 @@ jobs:
         files: |
           aztube-extension.zip
           aztube-extension.crx
+          aztube-extension.xpi
     
