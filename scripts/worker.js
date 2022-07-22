@@ -35,9 +35,8 @@ function registerListener(){
           DeviceManager.removeDevice(browserToken)
         }
       } catch (error) {
-        sendResponse(error);
+        return error;
       }
-      sendResponse('no errors downloading')
       return 'done';
     }
   );

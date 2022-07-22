@@ -27,9 +27,8 @@ browser.runtime.onMessage.addListener(
         DeviceManager.removeDevice(browserToken)
       }
     } catch (error) {
-      sendResponse(error);
+      return error;
     }
-    sendResponse('no errors downloading')
     return 'done';
   }
 );
