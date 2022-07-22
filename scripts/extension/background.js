@@ -1,7 +1,8 @@
 browser.runtime.onMessage.addListener(
   async (data, sender) => {
+    console.log(data);
     try{
-      if (!(message.cmd === 'download')) {
+      if (!(data.cmd === 'download')) {
         return 'unknown command';
       }
   
