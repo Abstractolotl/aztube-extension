@@ -3,7 +3,7 @@ import './lib/browser-polyfill.min.js';
 import './util.js';
 import './DeviceManager.js';
 
-window.browser.runtime.onMessage.addListener(
+browser.runtime.onMessage.addListener(
     async (data, sender) => {
       console.log(data);
       try{
@@ -27,10 +27,13 @@ window.browser.runtime.onMessage.addListener(
           quality: videoDetails.quality
         }
     
+        console.log(`${Config.HOST}/download`)
+
         let json = httpPost(`${Config.HOST}/download`, JSON.stringify(body))
     
         if (json.error === 'browserToken not Found') {
           DeviceManager.removeDevice(browserToken)
+          throw 'No device connected'
         }
       } catch (error) {
         return error;
