@@ -1,8 +1,8 @@
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    // TODO: change to Promise based way, as sendResponse is deprecated
-    try {
+browser.runtime.onMessage.addListener(
+  async (data, sender) => {
+    try{
       if (!(message.cmd === 'download')) {
-        return
+        return 'unknown command';
       }
   
       let browserToken = DeviceManager.getSelection()
@@ -11,8 +11,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         throw 'No device connected'
       }
   
-      let videoDetails = message.video
-  
+      let videoDetails = data.video
+    
       let body = {
         browserToken: browserToken,
         title: videoDetails.title,
@@ -27,8 +27,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         DeviceManager.removeDevice(browserToken)
       }
     } catch (error) {
-      sendResponse(error)
-      console.error(error)
+      sendResponse(error);
     }
     sendResponse('no errors downloading')
-  })
+    return 'done';
+  }
+);
