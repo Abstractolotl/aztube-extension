@@ -19,25 +19,10 @@ jobs:
       with:
         args: zip -qq -r aztube-extension.zip icons scripts styles index.html manifest.json
     - run: cp aztube-extension.zip aztube-extension.crx
-    - run: rm manifest.json && mv manifest-v2.json manifest.json
-    - uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r aztube-extension-m2.zip icons scripts styles index.html manifest.json
-    - run: mv aztube-extension-m2.zip aztube-extension.xpi
     - uses: actions/upload-artifact@v3.1.0
       with:
         name: extension
         path: aztube-extension.*
-    - uses: trmcnvn/firefox-addon@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        # uuid is only necessary when updating an existing addon,
-        # omitting it will create a new addon
-        uuid: '{55a5247f-9358-43d0-a43f-05a7a7fc8c2a}'
-        xpi: aztube-extension.xpi
-        manifest: manifest.json
-        api-key: ${{ secrets.FIREFOX_API_KEY }}
-        api-secret: ${{ secrets.FIREFOX_API_SECRET }}
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -45,5 +30,20 @@ jobs:
         files: |
           aztube-extension.zip
           aztube-extension.crx
-          aztube-extension.xpi
-    
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: rm manifest.json && mv manifest-v2.json manifest.json
+    - uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r aztube-extension-m2.zip icons scripts styles index.html manifest.json
+    - run: mv aztube-extension.zip aztube-extension.xpi
+    - uses: trmcnvn/firefox-addon@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        uuid: '{55a5247f-9358-43d0-a43f-05a7a7fc8c2a}'
+        xpi: aztube-extension.xpi
+        manifest: manifest.json
+        api-key: ${{ secrets.FIREFOX_API_KEY }}
+        api-secret: ${{ secrets.FIREFOX_API_SECRET }}
