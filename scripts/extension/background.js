@@ -1,4 +1,4 @@
-window.browser.runtime.onMessage.addListener(
+browser.runtime.onMessage.addListener(
   async (data, sender) => {
     console.log(data);
     try{
