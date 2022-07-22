@@ -5,7 +5,6 @@ import './DeviceManager.js';
 
 browser.runtime.onMessage.addListener(
     async (data, sender) => {
-      console.log(data);
       try{
         if (!(data.cmd === 'download')) {
           return 'unknown command';
