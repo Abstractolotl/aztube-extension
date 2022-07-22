@@ -51,3 +51,25 @@ jobs:
       with:
         name: extension-m2
         path: aztube-extension.*
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r aztube-extension.zip icons scripts styles index.html manifest.json
+    - run: mv aztube-extension.zip aztube-extension.crx
+    - run: rm manifest.json && mv manifest-v2.json manifest.json
+    - uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r aztube-extension.zip icons scripts styles index.html manifest.json
+    - run: cp aztube-extension.zip aztube-extension.xpi
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          aztube-extension.zip
+          aztube-extension.crx
+          aztube-extension.xpi
+
