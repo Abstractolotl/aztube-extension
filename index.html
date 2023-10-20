@@ -1,62 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/extension/index.css" />
-    <link rel="stylesheet" href="styles/extension/custom-selector.css" />
+    <link rel="stylesheet" href="styles/extension/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/extension/style.css" />
     <title>Document</title>
-  </head>
-  <body>
-    <div class="device-select-box">
-      <div class="dropdown">
-        <div class="select">
-          <span>Select Device</span>
-          <i class="fa fa-chevron-left"></i>
+</head>
+
+<body state="sent">
+
+    <div class="aztube-state-init container">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="aztube-device-dropdown">Send to Device</label>
+            </div>
+            <select class="custom-select" id="aztube-device-dropdown">
+                <option value="none" selected>Add Device</option>
+            </select>
+            <img id="aztube-delete-device" role="button" class="pl-2" src="res/delete.svg" />
         </div>
-        <input type="hidden" name="none" id="device-selection" />
-        <ul class="dropdown-menu"></ul>
-      </div>
+
+        <div class="card mx-auto" style="width: 20rem;">
+            <img id="aztube-video-thumbnail" class="card-img-top" alt="Card image cap">
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Title</span>
+                    </div>
+                    <input id="aztube-video-title" type="text" class="form-control" placeholder="Title">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Author</span>
+                    </div>
+                    <input id="aztube-video-author" type="text" class="form-control" placeholder="Author">
+                </div>
+
+
+
+                <p class="card-text">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect02">Quality</label>
+                    </div>
+                    <select id="aztube-quality" class="custom-select" id="inputGroupSelect02">
+                        <option selected value="audio">Audio</option>
+                        <option value="480p">480p</option>
+                        <option value="720p">720p</option>
+                        <option value="1080p">1080p</option>
+                    </select>
+                </div>
+                </p>
+                <a id="aztube-send" href="#" class="btn btn-primary">Send</a>
+            </div>
+        </div>
+
+
     </div>
 
-    <div class="qrcode-frame make-it-fast">
-      <div id="qrcode"></div>
-      <div id="qrcode-placeholder">
-        <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
-          <g id="Layer_1">
-            <title>Layer 1</title>
-            <path id="svg_1" d="m50,0" opacity="undefined" stroke-linecap="undefined" stroke-linejoin="undefined" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_3" y2="0" x2="60" y1="0" x1="0" stroke-width="6" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_4" y2="0" x2="250" y1="0" x1="190" stroke-width="6" stroke="#000" fill="none" />
-            <path id="svg_5" d="m50,249.99998" opacity="undefined" stroke-linecap="undefined" stroke-linejoin="undefined" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_6" y2="249.99998" x2="60" y1="249.99998" x1="0" stroke-width="6" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_7" y2="250.30302" x2="250" y1="250.30302" x1="190" stroke-width="6" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_8" y2="60" x2="0" y1="0" x1="0" stroke-width="6" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_9" y2="60" x2="250.00002" y1="0" x1="250.00002" stroke-width="6" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_10" y2="250.00002" x2="0.27027" y1="190.00002" x1="0.27027" stroke-width="6" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_11" y2="250" x2="250.00002" y1="190" x1="250.00002" stroke-width="6" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_12" y2="125" x2="170" y1="125" x1="80" stroke-width="3" stroke="#000" fill="none" />
-            <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_13" y2="170" x2="125" y1="80" x1="125" stroke-width="3" stroke="#000" fill="none" />
-            <text font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Rubik'" font-size="24" id="svg_14" y="220" x="59.94975" stroke-width="0" stroke="#000" fill="#000000">Add Device</text>
-          </g>
-        </svg>
-      </div>
+    <div class="aztube-state-device-link">
+
+        <div role="button" class="aztube-back pl-4 pb-2 d-flex align-items-center">
+            <img src="res/arrow_back.svg">
+            <span>Back</span>
+        </div>
+        
+        <div class="card mx-auto" style="width: 18rem;">
+            <img id="aztube-device-link-qr" role="button" class="card-img-top px-3 pt-3" src="res/qr_placeholder.svg" alt="Card image cap">
+            <div class="card-body">
+              <!-- <h5 class="card-title">Card title</h5> -->
+              <p class="card-text">To link a new Device, scan the QR-Code with the AzTube App!</p>
+            </div>
+          </div>
+
+        <div class="text-center pt-3">
+            <a id="get-the-app" href="https://abstractolotl.github.io/aztube/installation/#app-installation"
+                target="_blank">Get the AzTube app!</a>
+        </div>
     </div>
 
-    <div id="scan-info-text-wrapper" hidden="true">
-      <p id="scan-info-text">Scan this QR Code with the AzTube App!</p>
-    </div>
+    <div class="aztube-state-sent">
+        
+        <div role="button" class="aztube-back pl-4 pb-2 d-flex align-items-center">
+            <img src="res/arrow_back.svg">
+            <span>Back</span>
+        </div>
 
-    <div>
-      <a id="get-the-app" href="https://abstractolotl.github.io/aztube/installation/#app-installation" target="_blank">Get the AzTube app!</a>
+        <img height="100px" class="d-block mx-auto p-4" src="res/sent.svg" />
+        <h4 class="text-center">Sent!</h4>
     </div>
 
     <script src="scripts/lib/jquery-3.6.0.min.js"></script>
     <script src="scripts/lib/QRCode.min.js"></script>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/util.js"></script>
+    <script src="scripts/lib/bootstrap.bundle.min.js"></script>
     <script src="scripts/DeviceManager.js"></script>
-    <script src="scripts/extension/custom-selector.js"></script>
-    <script type="module" src="scripts/extension/extensionPopup.js"></script>
-  </body>
+    <script type="module" src="scripts/extension/index.js"></script>
+</body>
+
 </html>

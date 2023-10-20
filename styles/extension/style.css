@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+body {
+  width: 400px;
+  font-family: Comfortaa, sans-serif;
+  padding: 15px 0px;
+}
+
+body:not([state="init"]) .aztube-state-init {
+    display: none;
+}
+
+body:not([state="device-link"]) .aztube-state-device-link {
+    display: none;
+}
+
+body:not([state="sent"]) .aztube-state-sent {
+    display: none;
+}
+
+[role="button"] {
+    cursor: pointer;
+}
+
+.qr-container {
+    position: relative;
+}

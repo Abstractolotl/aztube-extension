@@ -9,42 +9,10 @@
   },
   "permissions": [
     "activeTab",
-    "storage",
-    "*://www.youtube.com/"
+    "storage"
   ],
   "browser_action": {
     "default_popup": "index.html"
   },
-  "manifest_version": 2,
-  "content_scripts": [
-    {
-      "matches": [
-        "*://www.youtube.com/watch*"
-      ],
-      "js": [
-        "scripts/lib/browser-polyfill.min.js",
-        "scripts/config.js",
-        "scripts/youtube/download.js",
-        "scripts/util.js",
-        "scripts/youtube/index.js"
-      ],
-      "css": [
-        "styles/youtube/style.css"
-      ]
-    }
-  ],
-  "background": {
-    "scripts": [
-      "scripts/config.js",
-      "scripts/lib/browser-polyfill.min.js",
-      "scripts/util.js",
-      "scripts/DeviceManager.js",
-      "scripts/extension/background.js"
-    ],
-    "browser_specific_settings": {
-      "gecko": {
-        "id": "addon@example.com"
-      }
-    }
-  }
+  "manifest_version": 2
 }

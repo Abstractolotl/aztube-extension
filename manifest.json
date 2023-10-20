@@ -11,37 +11,8 @@
     "activeTab",
     "storage"
   ],
-  "host_permissions": [
-    "*://www.youtube.com/"
-  ],
   "action": {
     "default_popup": "index.html"
   },
-  "manifest_version": 3,
-  "content_scripts": [
-    {
-      "matches": [
-        "*://www.youtube.com/watch*"
-      ],
-      "js": [
-        "scripts/lib/browser-polyfill.min.js",
-        "scripts/config.js",
-        "scripts/youtube/download.js",
-        "scripts/util.js",
-        "scripts/youtube/index.js"
-      ],
-      "css": [
-        "styles/youtube/style.css"
-      ]
-    }
-  ],
-  "background": {
-    "service_worker": "scripts/worker.js",
-    "type": "module",
-    "browser_specific_settings": {
-      "gecko": {
-        "id": "addon@example.com"
-      }
-    }
-  }
+  "manifest_version": 3
 }

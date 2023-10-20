@@ -26,6 +26,10 @@ class DeviceManager {
     return 'none'
   }
 
+  static setSelectedDevice(browserToken) {
+    localStorage.setItem('selectedDevice', browserToken)
+  }
+
   static getDevices() {
     let devices = localStorage.getItem('devices')
 
