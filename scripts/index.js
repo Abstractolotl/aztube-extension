@@ -1,6 +1,4 @@
-import { download, generate, status } from "../aztube.js";
-
-const aztubeApi = "http://frieren.abstractolotl.de:9000";
+import { download, generate, status } from "./aztube.js";
 
 const html = {
     videoThumbnail: document.querySelector("#aztube-video-thumbnail"),
@@ -37,7 +35,6 @@ function initDeviceLink() {
 
 async function checkQrCode(code) {
     let response = await status(code);
-    console.log(response);
 
     if (response.status == "registered") {
         html.qrCode.src = "res/qr_placeholder.svg";   
@@ -97,15 +94,6 @@ function setState(state) {
     document.body.setAttribute("state", state);
 }
 
-function validateElements() {
-    for(let e in html) {
-        if (!html[e]) {
-            console.log("RIP", e);
-        }
-        else console.log(e, "is good")
-    }
-}
-
 async function getVideoInfoFromUrl(url) {
     let endpoint = "https://noembed.com/embed?dataType=json&url=" + encodeURIComponent(url);
     let data = await (await fetch(endpoint)).json();
@@ -122,7 +110,6 @@ function addDeviceToDropdown(device) {
 
     if (selected == device.browserToken) {
         option.selected = true;
-        console.log("Selected", device.deviceName)
     }
 }
 
@@ -200,7 +187,6 @@ async function initDownloadTab() {
     });
 }
 
-validateElements();
 initDownloadTab();
 initDeviceDropdown();
 initDeviceLink();
