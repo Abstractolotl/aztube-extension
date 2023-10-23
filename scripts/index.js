@@ -1,60 +1,153 @@
-import { download, generate, status } from "./aztube.js";
+import AztubeClient from "./aztube.js";
+import ExtensionPopup from "./extension.js";
 
-const html = {
+const popupHtml = {
+    statefulContainer: document.body,
     videoThumbnail: document.querySelector("#aztube-video-thumbnail"),
     videoTitle: document.querySelector("#aztube-video-title"),
-    videoAutor: document.querySelector("#aztube-video-author"),
+    videoAuthor: document.querySelector("#aztube-video-author"),
     deviceDropdown: document.querySelector("#aztube-device-dropdown"),
-    backArrow: document.querySelectorAll(".aztube-back"),
-    qrCode: document.querySelector("#aztube-device-link-qr"),
-    deleteDevice: document.querySelector("#aztube-delete-device"),
+    backArrows: document.querySelectorAll(".aztube-back"),
     sendButton: document.querySelector("#aztube-send"),
-    qualityDropdown: document.querySelector("#aztube-quality")
+    qualityDropdown: document.querySelector("#aztube-quality"),
+    deleteDevice: document.querySelector("#aztube-delete-device"),
+    qrCode: document.querySelector("#aztube-device-link-qr"),
+    errorText: document.querySelector("#aztube-error"),
+};
+
+
+const client = new AztubeClient("http://frieren.abstractolotl.de:9000");
+const callbacks = {addEventListener: (e, f) => callbacks[e] = f};
+const popup = new ExtensionPopup(popupHtml, callbacks);
+
+async function init() {
+    callbacks.addEventListener("send", onSend);
+    callbacks.addEventListener("changeSelectedDevice", onChangeSelectedDevice);
+    callbacks.addEventListener("deleteDevice", onDeleteDevice);
+    callbacks.addEventListener("generateQrCode", onGenerateQrCode);
+
+    loadDevices();
+    loadCurrentVideoInfo();
 }
 
-function initDeviceLink() {
-    html.backArrow.forEach((e) => {
-        e.addEventListener("click", () => {
-            setState("init");
-        })
+async function onSend(title, author, quality) {
+    const device = DeviceManager.getSelectedDevice();
+    if (!device || device === "none") {
+        popup.navigateDeviceLink();
+        popup.showError("No device selected. Please register a device first.");
+        return;
+    }
+
+    const id = new URL(await getCurrentUrl()).searchParams.get("v");
+
+    try {
+        client.download(device.browserToken, title, author, id, quality);
+    } catch (e) {
+        popup.showError("Failed to send video to device.");
+        console.error(e);
+    }
+}
+
+async function onDeleteDevice(token) {
+    if (token === "none") {
+        return;
+    }
+
+    DeviceManager.removeDevice(token);
+    popup.removeDeviceFromDropdown(token);
+}
+
+function onChangeSelectedDevice(e) {
+    if (e === "none") {
+        popup.navigateDeviceLink();
+    }
+
+    DeviceManager.setSelectedDevice(e);
+}
+
+function onGenerateQrCode() {
+    startDeviceLinkFlow();
+}
+
+function loadDevices() {
+    let devices = DeviceManager.getDevices();
+    for (const device of devices) {
+        popup.addDeviceToDropdown(device);
+    }
+}
+
+async function loadCurrentVideoInfo() {
+    const videoInfo = await getVideoInfoFromUrl(await getCurrentUrl());
+    popup.showVideoInfo(videoInfo);
+}
+
+async function startDeviceLinkFlow() {
+    let response;
+    try {
+        response = await client.generate();
+    } catch (e) {
+        popup.showError("Failed to generate device link token. Service may be offline.");
+        console.error(e);
+        return;
+    }
+    let code = response.uuid;
+
+    popup.showQrImage(code);
+    let device;
+    try {
+        device = await checkDeviceLinkToken(code);
+    } catch (e) {
+        if (e) {
+            popup.showError("Failed to register device.");
+            console.error(e);
+        } else {
+            popup.showError("Device link token expired. Please try again.");
+        }
+        popup.resetQrImage();
+        return;
+    }
+    registerDevice(device);
+    popup.navigateHome();
+}
+
+function checkDeviceLinkToken(code) {
+    return new Promise((resolve, reject) => {
+        const interval = setInterval(async () => {
+            let response;
+            try {
+                response = await client.status(code);
+            } catch (e) {
+                reject(e);
+                clearInterval(interval);
+            }
+            console.log(response);
     
-        html.qrCode.addEventListener("click", async () => {
-            let response = await generate();
-            let code = response.uuid;
-            
-            updateQrCode(code);       
-            let interval = setInterval(async () => {
-                if (await checkQrCode(code)) {
-                    clearInterval(interval);
-                    setState("init");
+            if (response.status == "registered") {
+                popup.resetQrImage();
+    
+                const device = {
+                    browserToken: response.browserToken,
+                    deviceName: response.deviceName
                 }
-            }, 500);
-        })
+                resolve(device);
+                clearInterval(interval);
+            } else if (response.status != "generated") {
+                reject(false);
+                clearInterval(interval);
+            }
+        }, 500);
     });
 }
 
-async function checkQrCode(code) {
-    let response = await status(code);
-
-    if (response.status == "registered") {
-        html.qrCode.src = "res/qr_placeholder.svg";   
-        const device = {
-            browserToken: response.browserToken,
-            deviceName: response.deviceName
-        }
-
-        let num = 0;
-        while (existsWithName(device.deviceName)) {
-            device.deviceName = response.deviceName + " (" + (num + 1) + ")";
-            num++;
-        }
-
-        DeviceManager.addAndSelectDevice(device.browserToken, device.deviceName);
-        addDeviceToDropdown(device)
-        return true;
+function registerDevice(device) {
+    let num = 0;
+    while (existsWithName(device.deviceName)) {
+        device.deviceName = response.deviceName + " (" + (num + 1) + ")";
+        num++;
     }
 
-    return false;
+    DeviceManager.addAndSelectDevice(device.browserToken, device.deviceName);
+    popup.addDeviceToDropdown(device);
 }
 
 function existsWithName(deviceName) {
@@ -67,132 +160,19 @@ function existsWithName(deviceName) {
     return false;
 }
 
-function updateQrCode(qr) {
-    let dummy = document.createElement("div");
-    new QRCode(dummy, {
-        text: qr,
-        width: 250,
-        height: 250,
-        colorDark: '#212121',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
-    });
-    let counter = 0;
-    const update = () => {
-        let src = dummy.querySelector("img").src;
-        if (!src && counter < 10) {
-            counter++;
-            setTimeout(update, 100)
-            return 
-        }
-        html.qrCode.src = src
-    };
-    setTimeout(update, 10)
-}
-
-function setState(state) {
-    document.body.setAttribute("state", state);
-}
-
 async function getVideoInfoFromUrl(url) {
     let endpoint = "https://noembed.com/embed?dataType=json&url=" + encodeURIComponent(url);
     let data = await (await fetch(endpoint)).json();
     return data;
 }
 
-function addDeviceToDropdown(device) {
-    let selected = DeviceManager.getSelection();
-    let option = document.createElement("option");
-    option.value = device.browserToken;
-    option.innerText = device.deviceName;
-    
-    html.deviceDropdown.insertBefore(option, html.deviceDropdown.firstChild);
-
-    if (selected == device.browserToken) {
-        option.selected = true;
-    }
-}
-
-function removeDeviceFromDropdown(browserToken) {
-    let options = html.deviceDropdown.querySelectorAll("option");
-    for (const option of options) {
-        if (option.value == browserToken) {
-            option.remove();
-        }
-    }
-}
-
-function initDeviceDropdown() {
-    let devices = DeviceManager.getDevices();
-    
-    for (const device of devices) {
-        addDeviceToDropdown(device);
+async function getCurrentUrl() {
+    if (chrome && chrome.tabs) {
+        let currentTab = (await chrome.tabs.query({active: true, currentWindow: true}))[0];
+        return currentTab.url;
     }
 
-    html.deviceDropdown.addEventListener("change", (e) => {
-        console.log("change");
-        if (e.target.value == "none") {
-            setState("device-link");
-            return;
-        }
-        DeviceManager.setSelectedDevice(html.deviceDropdown.value);
-    })
-
-    html.deviceDropdown.addEventListener("click", (e) => {
-        if (e.target.value == "none" && DeviceManager.getDevices().length == 0) {
-            setState("device-link");
-        }
-    })
-
-    html.deleteDevice.addEventListener("click", () => {
-        if (html.deviceDropdown.value == "none") return;
-
-        let selected = DeviceManager.getSelection();
-        DeviceManager.removeDevice(selected);
-        removeDeviceFromDropdown(selected);
-
-        if (html.deviceDropdown.value != "none") {
-            DeviceManager.setSelectedDevice(html.deviceDropdown.value);
-        }
-    })
+    return "https://www.youtube.com/watch?v=Jv2uxzhPFl4";
 }
 
-async function initDownloadTab() {
-    let currentTab = (await chrome.tabs.query({active: true, currentWindow: true}))[0];
-    let url = currentTab.url;
-
-    let videoInfo = await getVideoInfoFromUrl(url);
-
-    html.videoTitle.value = videoInfo.title;
-    html.videoAutor.value = videoInfo.author_name;
-    html.videoThumbnail.src = videoInfo.thumbnail_url;
-
-    html.sendButton.addEventListener("click", () => {
-        let device = DeviceManager.getSelectedDevice();
-
-        if (!device) {
-            setState("device-link");
-            return;
-        }
-        
-        const videoId = new URL(videoInfo.url).searchParams.get("v");
-        download(device.browserToken, 
-            html.videoTitle.value, 
-            html.videoAutor.value, 
-            videoId, 
-            html.qualityDropdown.value
-        );
-
-        setState("sent");
-    });
-}
-
-initDownloadTab();
-initDeviceDropdown();
-initDeviceLink();
-
-if (DeviceManager.getDevices().length == 0) {
-    setState("device-link");
-} else {
-    setState("init");
-}
+init();
