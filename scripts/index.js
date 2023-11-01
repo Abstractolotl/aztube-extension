@@ -42,6 +42,7 @@ async function onSend(title, author, quality) {
 
     try {
         client.download(device.browserToken, title, author, id, quality);
+        popup.navigateSent();
     } catch (e) {
         popup.showError("Failed to send video to device.");
         console.error(e);

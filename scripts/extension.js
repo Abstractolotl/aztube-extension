@@ -60,6 +60,10 @@ export default class ExtensionPopup {
         this._setState("device-link");
     }
 
+    navigateSent() {
+        this._setState("sent");
+    }
+
     _setState(state) {
         this.htmlElements.statefulContainer.setAttribute("state", state);
         this.showError("");
